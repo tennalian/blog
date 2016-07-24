@@ -3,7 +3,6 @@ var webpack = require('webpack');
 
 module.exports = {
 	entry: [
-		'webpack/hot/dev-server',
 		'./app/app'
 	],
 	output: {
@@ -17,7 +16,7 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
+				loader: 'babel',
 				query: {
 		          	presets: ['es2015']
 		        },
@@ -39,10 +38,9 @@ module.exports = {
 			}
 		]
 	},
-	devServer:{
-		contentBase: './',
-		port: 3000,
-		hot: true,
-		historyApiFallback: true
-	}
+	plugins: [
+		new webpack.NoErrorsPlugin(),
+		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.UglifyJsPlugin({mangle: false}),
+	]
 };
