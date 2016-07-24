@@ -1,3 +1,7 @@
+import angular from 'angular';
+import ngRoute from 'angular-route';
+import './css/bootstrap.css';
+
 (function(){
     var blogApp = angular.module('blogApp',['ngRoute'])
         .constant('baseUrl', 'http://jsonplaceholder.typicode.com/posts')
@@ -51,15 +55,12 @@
 
     blogApp.controller('createCtrl', function($scope, $http, $location, baseUrl) {
         $scope.title = 'Create post';
-
-        var id = +$scope.posts.length;
-
         $scope.item = {};
         $scope.item.userId = 1;
         $scope.createPost = function(){
             var res = $http.post(baseUrl, $scope.item);
             res.success(function(data) {
-                $location.path('/posts/' + id);
+                $location.path('/');
             });
 
         }
