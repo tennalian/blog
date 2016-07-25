@@ -5,8 +5,8 @@ import './css/bootstrap.css';
 
 (function(){
     var blogApp = angular.module('blogApp',['ngRoute','ngResource'])
-        .constant('posts', 'http://jsonplaceholder.typicode.com/posts')
-        .constant('comments', 'http://jsonplaceholder.typicode.com/comments')
+        .constant('posts', 'https://jsonplaceholder.typicode.com/posts')
+        .constant('comments', 'https://jsonplaceholder.typicode.com/comments')
         .config(function($routeProvider, $locationProvider){
             $locationProvider.html5Mode({
               enabled: true,
