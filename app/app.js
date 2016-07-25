@@ -14,16 +14,16 @@ import './css/bootstrap.css';
             });
             $routeProvider.when('/',
             {
-                templateUrl:'/views/home.html',
+                templateUrl:'views/home.html',
             });
             $routeProvider.when('/create',
             {
-                templateUrl:'/views/create.html',
+                templateUrl:'views/create.html',
                 controller: 'createCtrl'
             });
             $routeProvider.when('/posts/:id',
             {
-                templateUrl:'/views/post.html',
+                templateUrl:'views/post.html',
                 controller: 'postCtrl'
             });
             $routeProvider.otherwise({redirectTo: '/'});
