@@ -1,10 +1,12 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import ngResource from 'angular-resource';
 import './css/bootstrap.css';
 
 (function(){
-    var blogApp = angular.module('blogApp',['ngRoute'])
-        .constant('baseUrl', 'http://jsonplaceholder.typicode.com/posts')
+    var blogApp = angular.module('blogApp',['ngRoute','ngResource'])
+        .constant('posts', 'http://jsonplaceholder.typicode.com/posts')
+        .constant('comments', 'http://jsonplaceholder.typicode.com/comments')
         .config(function($routeProvider, $locationProvider){
             $locationProvider.html5Mode({
               enabled: true,
@@ -28,13 +30,9 @@ import './css/bootstrap.css';
         });
 
 
-    blogApp.controller('mainCtrl', function($scope, $http, $location, baseUrl) {
-        $scope.refreshData = function(){
-            $http.get(baseUrl).success(function(data){
-                $scope.posts = data;
-            });
-        }
-
+    blogApp.controller('mainCtrl', function($scope, $resource, $location, posts) {
+        var refreshData = $resource(posts, {});
+        $scope.posts = refreshData.query();
 
         $scope.viewCreate = function(){
             $location.path('/create');
@@ -43,26 +41,19 @@ import './css/bootstrap.css';
         $scope.viewHome = function(){
             $location.path('/');
         }
-
-         $scope.refreshData();
     });
 
-    blogApp.controller('postCtrl', function($scope, $http, $location, baseUrl, $routeParams) {
-        $http.get(baseUrl+"/"+$routeParams.id).success(function(data){
-            $scope.item = data;
-        });
+    blogApp.controller('postCtrl', function($scope, $resource, $location, posts, $routeParams) {
+        var post = $resource(posts+'/:postId', { postId: $routeParams.id});
+        $scope.item = post.get();
+
     });
 
-    blogApp.controller('createCtrl', function($scope, $http, $location, baseUrl) {
+    blogApp.controller('createCtrl', function($scope, $resource, $location, posts) {
         $scope.title = 'Create post';
-        $scope.item = {};
-        $scope.item.userId = 1;
-        $scope.createPost = function(){
-            var res = $http.post(baseUrl, $scope.item);
-            res.success(function(data) {
-                $location.path('/');
-            });
-
+        var post = $resource(posts, {});
+        $scope.addPost = function(){
+            $scope.post = post.save($scope.item);
         }
     });
 
