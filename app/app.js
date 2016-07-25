@@ -12,18 +12,18 @@ import './css/bootstrap.css';
               enabled: true,
               requireBase: false
             });
-            $routeProvider.when('/',
+            $routeProvider.when('/blog/',
             {
-                templateUrl:'/views/home.html',
+                templateUrl:'/blog/views/home.html',
             });
-            $routeProvider.when('/create',
+            $routeProvider.when('/blog/create',
             {
-                templateUrl:'/views/create.html',
+                templateUrl:'/blog/views/create.html',
                 controller: 'createCtrl'
             });
-            $routeProvider.when('/posts/:id',
+            $routeProvider.when('/blog/posts/:id',
             {
-                templateUrl:'/views/post.html',
+                templateUrl:'/blog/views/post.html',
                 controller: 'postCtrl'
             });
             $routeProvider.otherwise({redirectTo: '/'});
@@ -35,11 +35,11 @@ import './css/bootstrap.css';
         $scope.posts = refreshData.query();
 
         $scope.viewCreate = function(){
-            $location.path('/create');
+            $location.path('/blog/create');
         }
 
         $scope.viewHome = function(){
-            $location.path('/');
+            $location.path('/blog');
         }
     });
 
