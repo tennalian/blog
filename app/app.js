@@ -12,7 +12,7 @@ import './css/bootstrap.css';
               enabled: true,
               requireBase: false
             });
-            $routeProvider.when('/blog/',
+            $routeProvider.when('/blog',
             {
                 templateUrl:'/blog/views/home.html',
             });
