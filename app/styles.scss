@@ -1,0 +1,65 @@
+main{
+	padding: 0 0 50px;
+}
+
+.btn{
+	outline: none;
+	&:focus, &:active, &:active:focus{
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.acticle{
+	.comments{
+		margin: 50px 0 0;
+		padding: 0;
+		ul{
+			margin: 0;
+			padding: 0;
+			li{
+				list-style: none;
+				p{
+					margin: 0;
+					span{
+						display: inline-block;
+						margin-right: 20px;
+					}
+				}
+				& + li{
+					margin-top: 30px;
+				}
+				.form-item{
+					p{
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+			}
+		}
+	}
+}
+
+.posts{
+	ul{
+		margin: 0;
+		padding: 0 0 0 20px;
+		li{
+			list-style-type: decimal;
+			padding-left: 10px;
+		}
+	}
+}
+
+.create{
+	.add-post{padding:0}
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}

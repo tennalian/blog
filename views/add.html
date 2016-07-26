@@ -1,0 +1,23 @@
+<section class="create">
+	<div class="container">
+		<div class="row">
+			<h1>{{title}}</h1>
+			<div class="col-md-8 col-sm-8 add-post">
+				<form action="">
+					<div class="form-group">
+						<input type="text" placeholder="Заголовок" class="form-control" value="" name="post_title" ng-model="newPost.title" required="required"/>
+					</div>
+					<div class="form-group">
+						<textarea placeholder="Текст" class="form-control" name="post_body" ng-model="newPost.body" required="required" rows="10"></textarea>
+					</div>
+					<div class="form-group">
+						<button type="submit" ng-click="addPost()" class="btn btn-success">Соxранить</button>
+						<button type="cancel" ng-click="viewHome()" class="btn btn-default">Отменить</button>
+					</div>
+				</form>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</section>
+

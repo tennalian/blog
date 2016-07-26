@@ -5,22 +5,22 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 </head>
-<body>
+<body ng-controller="mainCtrl">
 	<header>
 		<nav class="navbar navbar-default">
 			<div class="container">
 				<div class="row clearfix">
 					<div class="navbar-header">
-						<a href="/" class="navbar-brand pull-left">Бложик</a>
+						<button class="navbar-brand pull-left btn btn-link" ng-click="viewHome()">Home</button>
 					</div>
 					<div class="navbar-right">
-						<a href="/create" class="btn btn-success navbar-btn">Добавить пост</a>
+						<button class="btn btn-success navbar-btn" ng-click="viewAdd()">Add post</button>
 					</div>
 				</div>
 			</div>
 		</nav>
 	</header>
-	<main ng-controller="mainCtrl">
+	<main>
 		<div ng-view></div>
 	</main>
     <script src="./build.js"></script>

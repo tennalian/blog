@@ -1,9 +1,11 @@
 <section class="posts">
 	<div class="container">
 		<div class="row">
-			<article ng-repeat="post in posts" class="post">
-				<h3><a href="/posts/{{post.id}}">{{post.title}}</a></h3>
-			</article>
+			<ul>
+				<li ng-repeat="post in posts" class="post">
+					<h4><a href="/posts/{{post.id}}">{{post.title}}</a></h4>
+				</li>
+			</ul>
 		</div>
 	</div>
 </section>

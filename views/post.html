@@ -5,6 +5,47 @@
 				<h1>{{item.title}}</h1>
 			</div>
 			<p>{{item.body}}</p>
+			<div class="comments col-md-8 col-sm-8">
+				<h2>Comments</h2>
+				<ul>
+					<li ng-repeat="comment in comments|limitTo:limit">
+						<div class="col-md-2 form-item form-item__id">
+							<p><span class="text-muted">Id:</span>{{comment.id}}</p>
+						</div>
+						<div class="col-md-6 form-item form-item__name">
+							<p title="{{comment.name}}"><span class="text-muted">Name:</span>{{comment.name}}</p>
+						</div>
+						<div class="col-md-4 form-item form-item__email">
+							<p title="{{comment.email}}"><span class="text-muted">Email:</span>{{comment.email}}</p>
+						</div>
+						<div class="col-md-12 form-item__body bs-callout">
+							<p class="">{{comment.body}}</p>
+						</div>
+						<div class="clearfix"></div>
+					</li>
+				</ul>
+				<div class="more">
+					<a href="" ng-click="showMore()" ng-if="comments.length > limit" class="btn btn-primary">Show more</a>
+				</div>
+				<div class="comments__add">
+				<h2>Add comment:</h2>
+					<form action="">
+						<div class="form-group">
+							<input type="text" ng-model="newComment.name" class="form-control" name="comment_name" required="required" placeholder="Name" />
+						</div>
+						<div class="form-group">
+							<input type="email" ng-model="newComment.email" class="form-control" name="comment_email" required="required" placeholder="Email" />
+						</div>
+						<div class="form-group">
+							<textarea ng-model="newComment.body" class="form-control" name="comment_body" required="required" placeholder="Message"></textarea>
+						</div>
+						<div class="form-group">
+							<button type="submit" ng-click="addComment()" class="btn btn-success">Add comment</button>
+						</div>
+					</form>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 </section>
