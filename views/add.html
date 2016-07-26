@@ -3,7 +3,7 @@
 		<div class="row">
 			<h1>{{title}}</h1>
 			<div class="col-md-8 col-sm-8 add-post">
-				<form action="">
+				<div class="form">
 					<div class="form-group">
 						<input type="text" placeholder="Заголовок" class="form-control" value="" name="post_title" ng-model="newPost.title" required="required"/>
 					</div>
@@ -14,7 +14,7 @@
 						<button type="submit" ng-click="addPost()" class="btn btn-success">Соxранить</button>
 						<button type="cancel" ng-click="viewHome()" class="btn btn-default">Отменить</button>
 					</div>
-				</form>
+				</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>

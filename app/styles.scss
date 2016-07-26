@@ -42,12 +42,13 @@ main{
 }
 
 .posts{
-	ul{
-		margin: 0;
-		padding: 0 0 0 20px;
-		li{
-			list-style-type: decimal;
-			padding-left: 10px;
+	article{
+		span{
+			font-size: 12px;
+			display: inline-block;
+			width: 30px;
+			text-align: right;
+			margin-right: 10px;
 		}
 	}
 }

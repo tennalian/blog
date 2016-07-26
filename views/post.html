@@ -8,7 +8,7 @@
 			<div class="comments col-md-8 col-sm-8">
 				<h2>Comments</h2>
 				<ul>
-					<li ng-repeat="comment in comments|limitTo:limit">
+					<li ng-repeat="comment in comments|limitTo:-limit">
 						<div class="col-md-2 form-item form-item__id">
 							<p><span class="text-muted">Id:</span>{{comment.id}}</p>
 						</div>
@@ -29,7 +29,7 @@
 				</div>
 				<div class="comments__add">
 				<h2>Add comment:</h2>
-					<form action="">
+					<div class="form">
 						<div class="form-group">
 							<input type="text" ng-model="newComment.name" class="form-control" name="comment_name" required="required" placeholder="Name" />
 						</div>
@@ -42,7 +42,7 @@
 						<div class="form-group">
 							<button type="submit" ng-click="addComment()" class="btn btn-success">Add comment</button>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="clearfix"></div>
 			</div>
