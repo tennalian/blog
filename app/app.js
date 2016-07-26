@@ -7,7 +7,7 @@ import './styles.scss';
     var blogApp = angular.module('blogApp',['ngRoute'])
         .constant('posts', 'https://jsonplaceholder.typicode.com/posts')
         .constant('comments', 'https://jsonplaceholder.typicode.com/comments')
-        .constant('site_prefix', '')
+        .constant('site_prefix', '/blog')
         .config(function($routeProvider, $locationProvider, site_prefix){
             $locationProvider.html5Mode({
               enabled: true,
@@ -15,16 +15,16 @@ import './styles.scss';
             });
             $routeProvider.when(site_prefix + '/',
             {
-                templateUrl: site_prefix + '/views/home.html',
+                templateUrl: '/views/home.html',
             });
             $routeProvider.when(site_prefix + '/add',
             {
-                templateUrl: site_prefix + '/views/add.html',
+                templateUrl: '/views/add.html',
                 controller: 'createCtrl'
             });
             $routeProvider.when( site_prefix +'/posts/:id',
             {
-                templateUrl: site_prefix +'/views/post.html',
+                templateUrl: '/views/post.html',
                 controller: 'postCtrl'
             });
             $routeProvider.otherwise({redirectTo: '/'});
