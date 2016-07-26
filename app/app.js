@@ -13,18 +13,18 @@ import './styles.scss';
               enabled: true,
               requireBase: false
             });
-            $routeProvider.when(site_prefix + '/',
+            $routeProvider.when('/',
             {
-                templateUrl: '/views/home.html',
+                templateUrl: site_prefix + '/views/home.html',
             });
-            $routeProvider.when(site_prefix + '/add',
+            $routeProvider.when('/add',
             {
-                templateUrl: '/views/add.html',
+                templateUrl: site_prefix + '/views/add.html',
                 controller: 'createCtrl'
             });
-            $routeProvider.when( site_prefix +'/posts/:id',
+            $routeProvider.when('/posts/:id',
             {
-                templateUrl: '/views/post.html',
+                templateUrl: site_prefix + '/views/post.html',
                 controller: 'postCtrl'
             });
             $routeProvider.otherwise({redirectTo: '/'});
