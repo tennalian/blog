@@ -7,7 +7,7 @@ import './styles.scss';
     var blogApp = angular.module('blogApp',['ngRoute'])
         .constant('posts', 'https://jsonplaceholder.typicode.com/posts')
         .constant('comments', 'https://jsonplaceholder.typicode.com/comments')
-        .constant('site_prefix', '/blog')
+        .constant('site_prefix', '')
         .config(function($routeProvider, $locationProvider, site_prefix){
             $locationProvider.html5Mode({
               enabled: true,
@@ -31,17 +31,45 @@ import './styles.scss';
         });
 
 
-    blogApp.controller('mainCtrl', function($scope, $http, $location, posts, site_prefix) {
+    blogApp.controller('mainCtrl', function($scope, $http, $location, posts, comments, site_prefix) {
         $scope.arrayPosts = [];
-        $scope.refreshData = function(){
-            $http.get(posts).success(function(data){
-                $scope.posts = data;
-                angular.forEach(data, function(item){
-                    $scope.arrayPosts.push(item);
+        $scope.arrayComments = [];
+
+        $scope.initPosts = function(){
+            if (localStorage.getItem('posts')!== null){
+                $scope.posts = JSON.parse(localStorage.getItem('posts'));
+            }
+            else{
+                $http.get(posts).success(function(data){
+                    $scope.posts = data;
+                    localStorage.setItem('posts', JSON.stringify($scope.posts));
                 });
-                $scope.totalPosts = $scope.arrayPosts.length;
+            }
+            angular.forEach($scope.posts, function(item){
+                $scope.arrayPosts.push(item);
             });
         }
+        $scope.initPosts();
+        $scope.totalPosts = $scope.arrayPosts.length;
+
+        $scope.initComments = function(){
+            if (localStorage.getItem('comments')!== null){
+                $scope.comments = JSON.parse(localStorage.getItem('comments'));
+            }
+            else{
+                $http.get(comments).success(function(data){
+                    $scope.comments = data;
+                    localStorage.setItem('comments', JSON.stringify($scope.comments));
+                });
+            }
+            angular.forEach($scope.comments, function(item){
+                $scope.arrayComments.push(item);
+            });
+        }
+
+        $scope.initComments();
+        $scope.totalComments = $scope.arrayComments.length;
+
 
         $scope.viewAdd = function(){
             $location.path(site_prefix + '/add');
@@ -50,39 +78,44 @@ import './styles.scss';
         $scope.viewHome = function(){
             $location.path(site_prefix + '/');
         }
-        $scope.refreshData();
     });
 
-    blogApp.controller('postCtrl', function($scope, $http, $routeParams, posts, comments) {
-        $http.get(posts+"/"+$routeParams.id).success(function(data){
-            $scope.item = data;
-        });
+    blogApp.controller('postCtrl', function($scope, $http, $timeout, $routeParams, $location, comments, site_prefix) {
+
+        for(var i=0;i<$scope.totalPosts;i++){
+            if ($scope.posts[i].id == $routeParams.id){
+                $scope.item =  $scope.posts[i];
+            }
+        }
 
         $scope.limit = 3;
-         $scope.arrayComments = [];
-        $http.get(comments+'?postId='+$routeParams.id).success(function(data){
-            $scope.comments = data;
-            angular.forEach(data, function(item){
-                $scope.arrayComments.push(item);
-            });
-            $scope.totalComments = $scope.arrayComments.length;
-        });
 
-        $scope.newComment={};
+        $scope.postComments = [];
+        for(var i=0;i<$scope.totalComments;i++){
+            if ($scope.comments[i].postId == $routeParams.id){
+                $scope.postComments.push($scope.comments[i]);
+            }
+        }
+
+
         $scope.addComment = function(){
-            $scope.newComment.postId = $routeParams.id;
+            $scope.newComment.postId = +$routeParams.id;
             $scope.newComment.id = $scope.totalComments + 1;
             var res = $http.post(comments, $scope.newComment);
             res.success(function(data) {
+                console.log($scope.newComment);
                 $scope.comments.push($scope.newComment);
-                console.log($scope.newComment)
                 $scope.newComment = {};
+                localStorage.setItem('comments', JSON.stringify($scope.comments));
             });
         }
 
         $scope.showMore = function(){
             $scope.limit += 3;
         }
+
+
+
 
     });
 
@@ -95,8 +128,8 @@ import './styles.scss';
             var res = $http.post(posts, $scope.newPost);
             res.success(function(data) {
                 $scope.posts.push($scope.newPost);
-                console.log($scope.newPost)
                 $scope.newPost = {};
+                localStorage.setItem('posts', JSON.stringify($scope.posts));
                 $location.path(site_prefix + '/');
             });
         }
