@@ -12,7 +12,7 @@ import './styles.scss';
             $locationProvider.html5Mode({
               enabled: true,
             });
-            $routeProvider.when(site_prefix + '/',
+            $routeProvider.when( site_prefix,
             {
                 templateUrl: site_prefix + '/views/home.html',
             });
@@ -21,7 +21,7 @@ import './styles.scss';
                 templateUrl: site_prefix + '/views/add.html',
                 controller: 'createCtrl'
             });
-            $routeProvider.when(site_prefix +'/posts/:id',
+            $routeProvider.when(site_prefix + '/posts/:id',
             {
                 templateUrl: site_prefix + '/views/post.html',
                 controller: 'postCtrl'
