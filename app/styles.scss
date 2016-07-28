@@ -2,6 +2,11 @@ main{
 	padding: 0 0 50px;
 }
 
+h1{
+	margin: 0 0 20px;
+	font-size: 36px;
+}
+
 .btn{
 	outline: none;
 	&:focus, &:active, &:active:focus{
@@ -11,11 +16,15 @@ main{
 }
 
 .acticle{
+	h2{
+		margin: 0 0 20px;
+		font-size: 25px;
+	}
 	.comments{
 		margin: 50px 0 0;
 		padding: 0;
 		ul{
-			margin: 0;
+			margin: 0 0 20px;
 			padding: 0;
 			li{
 				list-style: none;
@@ -36,8 +45,18 @@ main{
 						text-overflow: ellipsis;
 					}
 				}
+				.bs-callout {
+				    padding: 20px;
+				    margin: 20px 0 0;
+				    border: 1px solid #eee;
+				    border-radius: 3px;
+				    background: #f5f5f5;
+				}
 			}
 		}
+	}
+	.comments__add{
+		margin: 20px 0 0;
 	}
 }
 
@@ -62,13 +81,7 @@ main{
 	.add-post{padding:0}
 }
 
-.bs-callout {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #eee;
-    border-left-width: 5px;
-    border-radius: 3px;
-}
+
 
 
 .animated {

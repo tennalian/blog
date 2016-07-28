@@ -11,7 +11,6 @@
 					<li ng-repeat="comment in postComments|limitTo:-limit track by $index">
 						<div class="col-md-2 form-item form-item__id">
 							<p><span class="text-muted">Id:</span>{{comment.id}}</p>
-							<p><span class="text-muted">PostId:</span>{{comment.postId}}</p>
 						</div>
 						<div class="col-md-6 form-item form-item__name">
 							<p title="{{comment.name}}"><span class="text-muted">Name:</span>{{comment.name}}</p>
