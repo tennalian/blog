@@ -61,6 +61,8 @@ import './styles.scss';
         $scope.viewHome = function(){
             $location.path(site_prefix + '/');
         }
+
+
     });
 
     blogApp.controller('postCtrl', function($scope, $http, $routeParams, $location, comments, posts, site_prefix) {
