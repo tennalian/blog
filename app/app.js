@@ -11,7 +11,6 @@ import './styles.scss';
         .config(function($routeProvider, $locationProvider, site_prefix){
             $locationProvider.html5Mode({
               enabled: true,
-              requireBase: false
             });
             $routeProvider.when(site_prefix + '/',
             {
@@ -32,44 +31,27 @@ import './styles.scss';
 
 
     blogApp.controller('mainCtrl', function($scope, $http, $location, posts, comments, site_prefix) {
-        $scope.arrayPosts = [];
-        $scope.arrayComments = [];
 
-        $scope.initPosts = function(){
-            if (localStorage.getItem('posts')!== null){
-                $scope.posts = JSON.parse(localStorage.getItem('posts'));
-            }
-            else{
-                $http.get(posts).success(function(data){
-                    $scope.posts = data;
-                    localStorage.setItem('posts', JSON.stringify($scope.posts));
-                });
-            }
-            angular.forEach($scope.posts, function(item){
-                $scope.arrayPosts.push(item);
-            });
+
+        if (localStorage.getItem('posts')!== null){
+            $scope.posts = JSON.parse(localStorage.getItem('posts'));
         }
-        $scope.initPosts();
-        $scope.totalPosts = $scope.arrayPosts.length;
-
-        $scope.initComments = function(){
-            if (localStorage.getItem('comments')!== null){
-                $scope.comments = JSON.parse(localStorage.getItem('comments'));
-            }
-            else{
-                $http.get(comments).success(function(data){
-                    $scope.comments = data;
-                    localStorage.setItem('comments', JSON.stringify($scope.comments));
-                });
-            }
-            angular.forEach($scope.comments, function(item){
-                $scope.arrayComments.push(item);
+        else{
+            $http.get(posts).success(function(data){
+               $scope.posts = data;
+               localStorage.setItem('posts', JSON.stringify($scope.posts));
             });
         }
 
-        $scope.initComments();
-        $scope.totalComments = $scope.arrayComments.length;
-
+        if (localStorage.getItem('comments')!== null){
+            $scope.comments = JSON.parse(localStorage.getItem('comments'));
+        }
+        else{
+            $http.get(comments).success(function(data){
+               $scope.comments = data;
+               localStorage.setItem('comments', JSON.stringify($scope.comments));
+            });
+        }
 
         $scope.viewAdd = function(){
             $location.path(site_prefix + '/add');
@@ -80,9 +62,9 @@ import './styles.scss';
         }
     });
 
-    blogApp.controller('postCtrl', function($scope, $http, $timeout, $routeParams, $location, comments, site_prefix) {
+    blogApp.controller('postCtrl', function($scope, $http, $routeParams, $location, comments, posts, site_prefix) {
 
-        for(var i=0;i<$scope.totalPosts;i++){
+        for(var i=0;i<$scope.posts.length;i++){
             if ($scope.posts[i].id == $routeParams.id){
                 $scope.item =  $scope.posts[i];
             }
@@ -90,17 +72,19 @@ import './styles.scss';
 
         $scope.limit = 3;
 
+
+
         $scope.postComments = [];
-        for(var i=0;i<$scope.totalComments;i++){
+        for(var i=0;i<$scope.comments.length;i++){
             if ($scope.comments[i].postId == $routeParams.id){
                 $scope.postComments.push($scope.comments[i]);
             }
         }
 
-
         $scope.addComment = function(){
-            $scope.newComment.postId = +$routeParams.id;
-            $scope.newComment.id = $scope.totalComments + 1;
+            $scope.newComment.postId = +$routeParams.id,
+            $scope.newComment.id = $scope.posts.length + 1;
+
             var res = $http.post(comments, $scope.newComment);
             res.success(function(data) {
                 console.log($scope.newComment);
@@ -121,12 +105,13 @@ import './styles.scss';
 
     blogApp.controller('createCtrl', function($scope, $http, $location, posts, site_prefix) {
         $scope.title = 'Add post';
-        $scope.newPost = {};
+
         $scope.addPost = function(){
             $scope.newPost.userId = 1;
-            $scope.newPost.id = $scope.totalPosts + 1;
+            $scope.newPost.id = $scope.posts.length + 1;
             var res = $http.post(posts, $scope.newPost);
             res.success(function(data) {
+                console.log($scope.newPost);
                 $scope.posts.push($scope.newPost);
                 $scope.newPost = {};
                 localStorage.setItem('posts', JSON.stringify($scope.posts));
