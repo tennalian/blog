@@ -21,7 +21,7 @@ import './styles.scss';
                 templateUrl: site_prefix + '/views/add.html',
                 controller: 'createCtrl'
             });
-            $routeProvider.when(site_prefix + '/posts/:id',
+            $routeProvider.when( site_prefix + '/posts/:id',
             {
                 templateUrl: site_prefix + '/views/post.html',
                 controller: 'postCtrl'
