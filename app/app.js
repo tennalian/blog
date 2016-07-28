@@ -86,14 +86,16 @@ import './styles.scss';
 
         $scope.addComment = function(){
             $scope.newComment.postId = +$routeParams.id,
-            $scope.newComment.id = $scope.posts.length + 1;
+            $scope.newComment.id = $scope.comments.length + 1;
 
             var res = $http.post(comments, $scope.newComment);
             res.success(function(data) {
                 console.log($scope.newComment);
                 $scope.comments.push($scope.newComment);
+                $scope.postComments.push($scope.newComment);
                 $scope.newComment = {};
                 localStorage.setItem('comments', JSON.stringify($scope.comments));
+                $location.path(site_prefix + '/posts/' + $routeParams.id);
             });
         }
 
