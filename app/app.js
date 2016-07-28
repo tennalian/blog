@@ -33,7 +33,6 @@ import './styles.scss';
 
     app.controller('mainCtrl', function($scope, $http, $location, posts, comments) {
 
-
         if (localStorage.getItem('posts')!== null){
             $scope.posts = JSON.parse(localStorage.getItem('posts'));
         }
