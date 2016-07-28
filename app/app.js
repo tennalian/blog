@@ -12,7 +12,7 @@ import './styles.scss';
             $locationProvider.html5Mode({
               enabled: true,
             });
-            $routeProvider.when( '/',
+            $routeProvider.when( site_prefix,
             {
                 templateUrl: site_prefix + '/views/home.html',
             });
@@ -26,7 +26,7 @@ import './styles.scss';
                 templateUrl: site_prefix + '/views/post.html',
                 controller: 'postCtrl'
             });
-            $routeProvider.otherwise({redirectTo: '/'});
+            $routeProvider.otherwise({redirectTo: site_prefix});
         });
 
 
