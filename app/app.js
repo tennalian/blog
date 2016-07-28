@@ -1,14 +1,15 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import ngInfiniteScroll from 'ng-infinite-scroll';
+import 'angular-scroll-animate';
 import './css/bootstrap.css';
 import './styles.scss';
 
 (function(){
-    var blogApp = angular.module('blogApp',['ngRoute'])
+    var app = angular.module('app',['ngRoute', 'infinite-scroll', 'angular-scroll-animate'])
         .constant('posts', 'https://jsonplaceholder.typicode.com/posts')
         .constant('comments', 'https://jsonplaceholder.typicode.com/comments')
-        .constant('site_prefix', '')
-        .config(function($routeProvider, $locationProvider, site_prefix){
+        .config(function($routeProvider, $locationProvider){
             $locationProvider.html5Mode({
               enabled: true,
               requireBase: false
@@ -30,8 +31,7 @@ import './styles.scss';
             $routeProvider.otherwise({redirectTo: '/'});
         });
 
-
-    blogApp.controller('mainCtrl', function($scope, $http, $location, posts, comments, site_prefix) {
+    app.controller('mainCtrl', function($scope, $http, $location, posts, comments) {
 
 
         if (localStorage.getItem('posts')!== null){
@@ -54,18 +54,20 @@ import './styles.scss';
             });
         }
 
-        $scope.viewAdd = function(){
-            $location.path(site_prefix + '/add');
+        $scope.data = $scope.posts.slice(0, 13);
+        $scope.getMoreData = function () {
+            $scope.data = $scope.posts.slice(0, $scope.data.length + 5);
         }
+        $scope.animateElementIn = function($el) {
+            $el.removeClass('hidden');
+            $el.addClass('animated fadeInUp');
+        };
 
-        $scope.viewHome = function(){
-            $location.path(site_prefix + '/');
-        }
-
+        $scope.commentsLimit = 3;
 
     });
 
-    blogApp.controller('postCtrl', function($scope, $http, $routeParams, $location, comments, posts, site_prefix) {
+    app.controller('postCtrl', function($scope, $http, $routeParams, $location, comments, posts) {
 
         for(var i=0;i<$scope.posts.length;i++){
             if ($scope.posts[i].id == $routeParams.id){
@@ -74,9 +76,6 @@ import './styles.scss';
         }
 
         $scope.limit = 3;
-
-
-
         $scope.postComments = [];
         for(var i=0;i<$scope.comments.length;i++){
             if ($scope.comments[i].postId == $routeParams.id){
@@ -87,7 +86,6 @@ import './styles.scss';
         $scope.addComment = function(){
             $scope.newComment.postId = +$routeParams.id,
             $scope.newComment.id = $scope.comments.length + 1;
-
             var res = $http.post(comments, $scope.newComment);
             res.success(function(data) {
                 console.log($scope.newComment);
@@ -95,20 +93,15 @@ import './styles.scss';
                 $scope.postComments.push($scope.newComment);
                 $scope.newComment = {};
                 localStorage.setItem('comments', JSON.stringify($scope.comments));
-                $location.path(site_prefix + '/posts/' + $routeParams.id);
             });
         }
 
         $scope.showMore = function(){
             $scope.limit += 3;
         }
-
-
-
-
     });
 
-    blogApp.controller('createCtrl', function($scope, $http, $location, posts, site_prefix) {
+    app.controller('createCtrl', function($scope, $http, $location, posts) {
         $scope.title = 'Add post';
 
         $scope.addPost = function(){
@@ -117,13 +110,13 @@ import './styles.scss';
             var res = $http.post(posts, $scope.newPost);
             res.success(function(data) {
                 console.log($scope.newPost);
-                $scope.posts.push($scope.newPost);
+                $scope.posts.unshift($scope.newPost);
                 $scope.newPost = {};
                 localStorage.setItem('posts', JSON.stringify($scope.posts));
-                $location.path(site_prefix + '/');
+                $scope.getMoreData();
+                $location.path('/');
             });
         }
     });
-
 })();
 

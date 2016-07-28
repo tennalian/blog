@@ -43,13 +43,18 @@ main{
 
 .posts{
 	article{
-		span{
-			font-size: 12px;
-			display: inline-block;
-			width: 30px;
-			text-align: right;
-			margin-right: 10px;
+		ul{
+			margin: 0;
+			li{
+				color: grey;
+				span{
+					color: #a94442;
+					opacity: .6;
+				}
+			}
 		}
+		a{cursor: pointer;}
+		& + article{margin-top: 50px;}
 	}
 }
 
@@ -63,4 +68,45 @@ main{
     border: 1px solid #eee;
     border-left-width: 5px;
     border-radius: 3px;
+}
+
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
 }

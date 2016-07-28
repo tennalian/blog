@@ -9,6 +9,7 @@
   "devDependencies": {
     "angular": "^1.5.6",
     "angular-route": "^1.5.6",
+    "angular-scroll-animate": "^0.9.9",
     "babel": "^6.5.2",
     "babel-core": "~6.4.0",
     "babel-loader": "~6.2.1",

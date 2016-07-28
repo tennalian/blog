@@ -6,7 +6,7 @@
 			</div>
 			<p>{{item.body}}</p>
 			<div class="comments col-md-8 col-sm-8">
-				<h2>Comments</h2>
+				<h2 ng-if="postComments.length">Comments</h2>
 				<ul>
 					<li ng-repeat="comment in postComments|limitTo:-limit track by $index">
 						<div class="col-md-2 form-item form-item__id">
