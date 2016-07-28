@@ -12,7 +12,7 @@ import './styles.scss';
             $locationProvider.html5Mode({
               enabled: true,
             });
-            $routeProvider.when( site_prefix,
+            $routeProvider.when( '/',
             {
                 templateUrl: site_prefix + '/views/home.html',
             });
