@@ -11,6 +11,7 @@ import './styles.scss';
         .config(function($routeProvider, $locationProvider, site_prefix){
             $locationProvider.html5Mode({
               enabled: true,
+              requireBase: false
             });
             $routeProvider.when( '/',
             {
