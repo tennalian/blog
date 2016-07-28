@@ -3,7 +3,7 @@
 		<div class="row">
 			<ul>
 				<article ng-repeat="post in posts | orderBy:'id':true track by $index" class="post">
-					<h4><span class="text-muted">{{post.id}}</span> <a href="/posts/{{post.id}}">{{post.title}}</a></h4>
+					<h4><span class="text-muted">{{post.id}}</span> <a href="posts/{{post.id}}">{{post.title}}</a></h4>
 				</article>
 			</ul>
 		</div>
