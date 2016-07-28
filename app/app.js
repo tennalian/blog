@@ -7,12 +7,12 @@ import './styles.scss';
     var blogApp = angular.module('blogApp',['ngRoute'])
         .constant('posts', 'https://jsonplaceholder.typicode.com/posts')
         .constant('comments', 'https://jsonplaceholder.typicode.com/comments')
-        .constant('site_prefix', '')
+        .constant('site_prefix', '/blog')
         .config(function($routeProvider, $locationProvider, site_prefix){
             $locationProvider.html5Mode({
               enabled: true,
             });
-            $routeProvider.when(site_prefix + '/blog',
+            $routeProvider.when(site_prefix + '/',
             {
                 templateUrl: site_prefix + '/views/home.html',
             });
