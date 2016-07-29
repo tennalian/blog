@@ -82,17 +82,25 @@ import './styles.scss';
             }
         }
 
+        $scope.newComment = {}
+        $scope.formError = '';
         $scope.addComment = function(){
-            $scope.newComment.postId = +$routeParams.id,
-            $scope.newComment.id = $scope.comments.length + 1;
-            var res = $http.post(comments, $scope.newComment);
-            res.success(function(data) {
-                console.log($scope.newComment);
-                $scope.comments.push($scope.newComment);
-                $scope.postComments.push($scope.newComment);
-                $scope.newComment = {};
-                localStorage.setItem('comments', JSON.stringify($scope.comments));
-            });
+            if (($scope.newComment.name)&&($scope.newComment.email)&&($scope.newComment.body)){
+                $scope.newComment.postId = +$routeParams.id,
+                $scope.newComment.id = $scope.comments.length + 1;
+                var res = $http.post(comments, $scope.newComment);
+                res.success(function(data) {
+                    console.log($scope.newComment);
+                    $scope.comments.push($scope.newComment);
+                    $scope.postComments.push($scope.newComment);
+                    $scope.newComment = {};
+                    localStorage.setItem('comments', JSON.stringify($scope.comments));
+                });
+                $scope.formError = '';
+            }
+            else{
+                $scope.formError = 'Все поля должны быть заполнены';
+            }
         }
 
         $scope.showMore = function(){
@@ -102,19 +110,27 @@ import './styles.scss';
 
     app.controller('createCtrl', function($scope, $http, $location, posts) {
         $scope.title = 'Add post';
-
+        $scope.newPost= {};
+        $scope.formError = '';
         $scope.addPost = function(){
-            $scope.newPost.userId = 1;
-            $scope.newPost.id = $scope.posts.length + 1;
-            var res = $http.post(posts, $scope.newPost);
-            res.success(function(data) {
-                console.log($scope.newPost);
-                $scope.posts.unshift($scope.newPost);
-                $scope.newPost = {};
-                localStorage.setItem('posts', JSON.stringify($scope.posts));
-                $scope.getMoreData();
-                $location.path('/');
-            });
+            if (($scope.newPost.title)&&($scope.newPost.body)){
+                $scope.newPost.userId = 1;
+                $scope.newPost.id = $scope.posts.length + 1;
+                var res = $http.post(posts, $scope.newPost);
+                res.success(function(data) {
+                    console.log($scope.newPost);
+                    $scope.posts.unshift($scope.newPost);
+                    $scope.newPost = {};
+                    localStorage.setItem('posts', JSON.stringify($scope.posts));
+                    $scope.getMoreData();
+                    $location.path('/');
+                });
+                $scope.formError = '';
+            }
+            else{
+                $scope.formError = 'Все поля должны быть заполнены';
+            }
+
         }
     });
 })();
